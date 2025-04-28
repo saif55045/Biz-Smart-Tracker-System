@@ -1,0 +1,133 @@
+.layout-container {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.layout-sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #1a1a1a;
+  padding: 20px;
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.layout-logo {
+  margin-bottom: 40px;
+  font-size: 1.5em;
+  text-align: center;
+  color: #646cff;
+  font-weight: bold;
+}
+
+.layout-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-button {
+  padding: 12px 15px;
+  background-color: transparent;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
+  font-size: 0.95em;
+  font-weight: 500;
+  width: 100%;
+}
+
+.nav-button:hover {
+  border-color: #646cff;
+  background-color: rgba(100, 108, 255, 0.1);
+}
+
+.nav-button.active {
+  background-color: #646cff;
+  border-color: #535bf2;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.logout-button {
+  margin-top: auto;
+  padding: 12px 15px;
+  background-color: #ff4444;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #ff2020;
+}
+
+.layout-content {
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  margin-left: 250px;
+}
+
+.toggle-button {
+  display: none;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1001;
+  padding: 8px 12px;
+  font-size: 20px;
+  background-color: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+@media (max-width: 768px) {
+  .toggle-button {
+    display: block;
+  }
+
+  .mobile-overlay {
+    display: block;
+  }
+
+  .layout-sidebar {
+    transform: translateX(-100%);
+  }
+
+  .layout-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .layout-content {
+    margin-left: 0;
+    padding: 60px 20px 20px;
+  }
+}
