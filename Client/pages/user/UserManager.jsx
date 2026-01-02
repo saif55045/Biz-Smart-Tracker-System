@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useCurrency } from '../../context/CurrencyContext';
 import config from '../../src/config';
-import '../../src/assets/styles/userManager.css';
+import './UserManager.css';
 
 // Icons
 const PlusIcon = () => (
