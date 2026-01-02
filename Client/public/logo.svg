@@ -1,0 +1,19 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="logoIconGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#3b82f6" />
+            <stop offset="100%" stop-color="#8b5cf6" />
+        </linearGradient>
+    </defs>
+    
+    <!-- Stylized B shape -->
+    <path d="M12 8h20c8 0 14 4 14 12 0 5-3 9-8 11 6 2 10 7 10 13 0 9-7 14-16 14H12V8z" stroke="url(#logoIconGradient)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Inner curves of B -->
+    <path d="M20 16h10c4 0 7 2 7 6s-3 6-7 6H20V16z" stroke="url(#logoIconGradient)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 34h12c5 0 8 3 8 7s-3 7-8 7H20V34z" stroke="url(#logoIconGradient)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Upward arrow -->
+    <path d="M38 28L50 12M50 12L56 12M50 12L50 20" stroke="url(#logoIconGradient)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M44 22L50 14" stroke="url(#logoIconGradient)" stroke-width="2" stroke-linecap="round"/>
+</svg>

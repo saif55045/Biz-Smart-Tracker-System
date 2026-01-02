@@ -1,0 +1,1034 @@
+/* ============================================ */
+/* Attendance Manager - Premium Dark Mode      */
+/* ============================================ */
+
+/* Page Container */
+.att-page {
+  padding: 1.5rem;
+}
+
+/* Header */
+.att-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.att-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Tab Navigation */
+.att-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  background: rgba(30, 41, 59, 0.5);
+  padding: 0.5rem;
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.att-tab {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #94a3b8;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.att-tab:hover {
+  color: #f1f5f9;
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.att-tab.active {
+  background: transparent;
+  color: #60a5fa;
+  border-bottom: 2px solid #60a5fa;
+  font-weight: 600;
+}
+
+/* Date Picker */
+.att-date-picker {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.att-date-picker label {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.att-date-input {
+  padding: 0.75rem 1rem;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #f1f5f9;
+  font-size: 0.95rem;
+  min-width: 180px;
+}
+
+.att-date-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.att-date-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+
+/* Statistics Row */
+.att-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.att-stat-card {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.att-stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.att-stat-value.blue {
+  color: #3b82f6;
+}
+
+.att-stat-value.green {
+  color: #10b981;
+}
+
+.att-stat-value.red {
+  color: #ef4444;
+}
+
+.att-stat-value.orange {
+  color: #f59e0b;
+}
+
+.att-stat-label {
+  font-size: 0.8rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Search Bar */
+.att-search {
+  margin-bottom: 1.5rem;
+}
+
+.att-search-box {
+  position: relative;
+  max-width: 400px;
+}
+
+.att-search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+}
+
+.att-search-input {
+  width: 100%;
+  padding: 0.875rem 2.5rem 0.875rem 2.75rem;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #f1f5f9;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.att-search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.att-search-input::placeholder {
+  color: #64748b;
+}
+
+.att-search-clear {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.att-search-clear:hover {
+  color: #94a3b8;
+}
+
+/* Employee Grid for Mark Attendance */
+.att-employee-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .att-employee-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.att-employee-card {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Ensures spacing */
+  gap: 1rem;
+  transition: all 0.2s;
+  min-width: 0;
+  height: auto;
+  /* Allow natural height */
+  position: relative;
+  overflow: visible;
+  /* Allow dropdown to overflow */
+}
+
+.att-employee-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Avatar with Blue Neon Glow */
+.att-employee-avatar {
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border: 2px solid #3b82f6;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+}
+
+/* If using initials instead of image, keep background */
+.att-employee-avatar:empty {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+}
+
+/* Employee cell in table */
+.att-employee-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.att-employee-cell .att-employee-avatar {
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  font-size: 0.9rem;
+}
+
+.att-employee-cell span {
+  font-weight: 500;
+  color: #f1f5f9;
+  margin-top: -15px;
+  /* Slight upward adjustment */
+  line-height: 1;
+}
+
+
+
+.att-employee-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+
+.att-employee-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0;
+  text-align: left;
+}
+
+.att-employee-info h4 {
+  margin: 0 0 0.15rem 0;
+  color: #f1f5f9;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.att-employee-info p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  display: none;
+  /* Hide email to match the design */
+}
+
+
+/* Status Pill Selector */
+.att-status-select {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  appearance: none;
+  /* Hide default arrow if custom one not used */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-align: center;
+  font-weight: 500;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+}
+
+.att-status-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.att-status-select option {
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 0.5rem;
+}
+
+/* Colored dropdown based on status */
+.att-status-select.status-present {
+  color: #10b981;
+  border-color: #10b981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+}
+
+.att-status-select.status-absent {
+  color: #ef4444;
+  border-color: #ef4444;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+}
+
+.att-status-select.status-late {
+  color: #f59e0b;
+  border-color: #f59e0b;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+}
+
+.att-status-select.status-leave,
+.att-status-select.status-half-day {
+  color: #3b82f6;
+  border-color: #3b82f6;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+}
+
+
+
+/* Submit Button */
+.att-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.att-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+.att-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Table Styles */
+.att-table-container {
+  overflow-x: auto;
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.att-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.att-table th {
+  padding: 1rem;
+  text-align: left;
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.att-table td {
+  padding: 0.875rem 1rem;
+  color: #e2e8f0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.att-table tbody tr:hover {
+  background: rgba(59, 130, 246, 0.05);
+}
+
+/* Status Badges */
+.att-status {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.att-status.present {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.att-status.absent {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.att-status.late {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+.att-status.leave,
+.att-status.on_leave {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.att-status.half_day {
+  background: rgba(139, 92, 246, 0.15);
+  color: #8b5cf6;
+}
+
+/* Filter Section for Reports */
+.att-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.att-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.att-filter-group label {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.att-filter-group select,
+.att-filter-group input {
+  padding: 0.625rem 1rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #f1f5f9;
+  font-size: 0.9rem;
+  min-width: 150px;
+}
+
+.att-filter-group select:focus,
+.att-filter-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.att-filter-btn {
+  align-self: flex-end;
+  padding: 0.625rem 1.5rem;
+  background: #3b82f6;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.att-filter-btn:hover {
+  background: #2563eb;
+}
+
+/* Export Button */
+.att-export-btn {
+  padding: 0.5rem 1rem;
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.att-export-btn:hover {
+  background: rgba(16, 185, 129, 0.25);
+}
+
+/* Monthly Summary Grid */
+.att-month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.att-month-nav button {
+  padding: 0.5rem 1rem;
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.att-month-nav button:hover {
+  background: rgba(59, 130, 246, 0.25);
+}
+
+.att-month-nav span {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  min-width: 180px;
+  text-align: center;
+}
+
+/* Summary Cards Grid */
+.att-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.att-summary-card {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.att-summary-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.att-summary-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+}
+
+.att-summary-name {
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.att-summary-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.att-summary-stat {
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 6px;
+}
+
+.att-summary-stat .num {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.att-summary-stat .num.green {
+  color: #10b981;
+}
+
+.att-summary-stat .num.red {
+  color: #ef4444;
+}
+
+.att-summary-stat .num.orange {
+  color: #f59e0b;
+}
+
+.att-summary-stat .num.blue {
+  color: #3b82f6;
+}
+
+.att-summary-stat .lbl {
+  font-size: 0.65rem;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.att-progress-bar {
+  height: 8px;
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.att-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #3b82f6);
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+.att-progress-text {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* Loading State */
+.att-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  color: #94a3b8;
+}
+
+.att-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(59, 130, 246, 0.2);
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: att-spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes att-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Message */
+.att-message {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.att-message.success {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.att-message.error {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Employee View (for non-admin) */
+.att-my-attendance {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+.att-my-attendance h3 {
+  color: #f1f5f9;
+  margin: 0 0 1rem 0;
+}
+
+.att-my-status {
+  font-size: 1.5rem;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Empty State */
+.att-empty {
+  text-align: center;
+  padding: 3rem;
+  color: #64748b;
+}
+
+.att-empty p {
+  margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .att-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .att-tabs {
+    width: 100%;
+  }
+
+  .att-tab {
+    flex: 1;
+    text-align: center;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .att-employee-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .att-filters {
+    flex-direction: column;
+  }
+
+  .att-filter-group {
+    width: 100%;
+  }
+
+  .att-filter-group select,
+  .att-filter-group input {
+    width: 100%;
+  }
+
+  .att-summary-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===================== */
+/* Reports Tab - Calendar */
+/* ===================== */
+
+.att-legend {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.att-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.att-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.att-dot.present {
+  background: #10b981;
+}
+
+.att-dot.absent {
+  background: #ef4444;
+}
+
+.att-dot.late {
+  background: #f59e0b;
+}
+
+.att-dot.leave,
+.att-dot.half_day {
+  background: #3b82f6;
+}
+
+.att-report-card {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.att-report-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.att-report-avatar {
+  width: 56px;
+  min-width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.att-report-info {
+  flex: 1;
+}
+
+.att-report-info h3 {
+  margin: 0 0 0.25rem 0;
+  color: #f1f5f9;
+  font-size: 1.1rem;
+}
+
+.att-report-info p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.att-report-rate {
+  text-align: center;
+  padding: 0.75rem 1.25rem;
+  background: rgba(59, 130, 246, 0.15);
+  border-radius: 12px;
+}
+
+.att-report-rate .rate-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #3b82f6;
+}
+
+.att-report-rate .rate-label {
+  display: block;
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.att-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 12px;
+}
+
+.att-calendar-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.25rem;
+  border-radius: 8px;
+  background: rgba(30, 41, 59, 0.6);
+  cursor: default;
+  transition: all 0.15s;
+}
+
+.att-calendar-day:hover {
+  transform: scale(1.1);
+}
+
+.att-calendar-day .day-num {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-bottom: 0.25rem;
+}
+
+.att-calendar-day .day-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #475569;
+}
+
+.att-calendar-day.present .day-dot {
+  background: #10b981;
+}
+
+.att-calendar-day.absent .day-dot {
+  background: #ef4444;
+}
+
+.att-calendar-day.late .day-dot {
+  background: #f59e0b;
+}
+
+.att-calendar-day.leave .day-dot,
+.att-calendar-day.half_day .day-dot {
+  background: #3b82f6;
+}
+
+.att-report-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.att-report-stat {
+  flex: 1;
+  min-width: 80px;
+  text-align: center;
+  padding: 0.75rem;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 8px;
+}
+
+.att-report-stat .stat-num {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.att-report-stat .stat-num.green {
+  color: #10b981;
+}
+
+.att-report-stat .stat-num.red {
+  color: #ef4444;
+}
+
+.att-report-stat .stat-num.orange {
+  color: #f59e0b;
+}
+
+.att-report-stat .stat-num.blue {
+  color: #3b82f6;
+}
+
+.att-report-stat .stat-label {
+  display: block;
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .att-calendar-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .att-report-summary {
+    flex-direction: column;
+  }
+}

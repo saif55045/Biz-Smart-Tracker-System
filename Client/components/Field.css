@@ -1,0 +1,37 @@
+.field-container {
+  margin-bottom: 1.25rem;
+  width: 100%;
+}
+
+.field-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.field-container input,
+.field-container textarea {
+  /* Inherits from global index.css reset, but ensuring specificity */
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.field-container input:focus,
+.field-container textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.field-container .required {
+  color: var(--danger);
+  margin-left: 2px;
+}

@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
   company_name: {
     type: String,
     required: true,
-    unique: true,
+    // No uniqueness constraint here, allowing multiple users with the same company_name
   },
   address: {
     type: String,
@@ -50,7 +50,19 @@ const userSchema = new mongoose.Schema({
   salary: {
     type: Number,
     default: 0,
+  },
+
+  profilePicture: {
+    type: String, // Base64 string
+    default: ''
   }
+});
+
+// Add a compound index for unique admin-company_name combination
+// This allows multiple employees with the same company_name but only one admin
+userSchema.index({ company_name: 1, role: 1 }, {
+  unique: true,
+  partialFilterExpression: { role: 'Admin' }  // Only apply uniqueness to Admin role
 });
 
 const User = mongoose.model('User', userSchema);
