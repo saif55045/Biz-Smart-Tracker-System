@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useCurrency } from '../../context/CurrencyContext';
+import { useToast } from '../../components/Toast';
 import config from '../../src/config';
 import './Userattendance.css';
 
 export default function AttendanceManager() {
   const { formatMoney } = useCurrency();
+  const toast = useToast();
   const [employees, setEmployees] = useState([]);
   const [attendanceData, setAttendanceData] = useState({});
   const [myAttendanceData, setMyAttendanceData] = useState(null);
@@ -99,7 +101,6 @@ export default function AttendanceManager() {
   };
 
   const handleSubmitAttendance = async () => {
-    if (!window.confirm('Submit attendance?')) return;
     setLoading(true);
     setMessage('');
     try {
@@ -108,8 +109,10 @@ export default function AttendanceManager() {
       await axios.post(`${config.API_URL}/user/mark-attendance`, { date, records }, {
         headers: { Authorization: `Bearer ${token}` }
       });
+      toast.success('Attendance submitted successfully!');
       setMessage('Attendance submitted successfully.');
     } catch (err) {
+      toast.error('Failed to submit attendance.');
       setMessage('Failed to submit attendance.');
     }
     setLoading(false);

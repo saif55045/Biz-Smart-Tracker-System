@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Attendance = require('../models/Attendance');
+const CompanySettings = require('../models/CompanySettings');
 const mongoose = require('mongoose');
 
 // Mark attendance for employees
@@ -198,6 +199,12 @@ exports.getAttendanceReport = async (req, res) => {
       }
     });
 
+    // Get company settings for deduction amounts
+    const settings = await CompanySettings.getOrCreate(company_name);
+    const absenceDeduction = settings.absenceDeduction || 0;
+    const halfDayDeduction = settings.halfDayDeduction || 0;
+    const lateDeduction = settings.lateDeduction || 0;
+
     // Calculate attendance percentage and adjusted salary
     Object.values(userMap).forEach(userData => {
       const effectivePresent =
@@ -210,17 +217,11 @@ exports.getAttendanceReport = async (req, res) => {
           ? (effectivePresent / userData.summary.totalDays) * 100
           : 0;
 
-      // Calculate adjusted salary based on attendance
+      // Calculate adjusted salary using configured deductions
       const monthlySalary = userData.salary || 0;
-      const workingDays = userData.summary.totalDays;
-
-      if (workingDays > 0) {
-        const dailyRate = monthlySalary / 30; // Assuming 30 days per month
-        const deductions = userData.summary.absent * dailyRate + (userData.summary.halfDay * (dailyRate / 2));
-        userData.summary.adjustedSalary = monthlySalary - deductions;
-      } else {
-        userData.summary.adjustedSalary = monthlySalary;
-      }
+      const lateCount = userData.records ? userData.records.filter(r => r.status === 'late').length : 0;
+      const deductions = (userData.summary.absent * absenceDeduction) + (userData.summary.halfDay * halfDayDeduction) + (lateCount * lateDeduction);
+      userData.summary.adjustedSalary = Math.max(0, monthlySalary - deductions);
     });
 
     res.status(200).json(Object.values(userMap));
@@ -254,6 +255,12 @@ exports.getMonthlyAttendanceSummary = async (req, res) => {
     // Calculate number of working days in the month
     const workingDays = getWorkingDaysInMonth(parseInt(year), parseInt(month) - 1);
 
+    // Get company settings for deduction amounts (fetch once, not per employee)
+    const settings = await CompanySettings.getOrCreate(company_name);
+    const absenceDeduction = settings.absenceDeduction || 0;
+    const halfDayDeduction = settings.halfDayDeduction || 0;
+    const lateDeduction = settings.lateDeduction || 0;
+
     // Prepare the monthly summary for each employee
     const monthlySummary = employees.map(employee => {
       // Filter records for this employee
@@ -273,11 +280,11 @@ exports.getMonthlyAttendanceSummary = async (req, res) => {
         ? (effectivePresent / workingDays) * 100
         : 0;
 
-      // Calculate salary adjustments
+      // Calculate salary adjustments using configured deductions
       const monthlySalary = employee.salary || 0;
-      const dailyRate = monthlySalary / 30; // Assuming 30 days per month
-      const deductions = absent * dailyRate + (halfDay * (dailyRate / 2));
-      const adjustedSalary = monthlySalary - deductions; return {
+      const lateCount = employeeRecords.filter(r => r.status === 'late').length;
+      const deductions = (absent * absenceDeduction) + (halfDay * halfDayDeduction) + (lateCount * lateDeduction);
+      const adjustedSalary = Math.max(0, monthlySalary - deductions); return {
         employeeId: employee._id,
         name: employee.name || employee.username, // Use username if name is not available
         username: employee.username,
@@ -494,17 +501,17 @@ exports.getMyAttendanceReport = async (req, res) => {
         ? (effectivePresent / userData.summary.totalDays) * 100
         : 0;
 
-    // Calculate adjusted salary based on attendance
-    const monthlySalary = employee.salary || 0;
-    const workingDays = userData.summary.totalDays;
+    // Get company settings for deduction amounts
+    const settings = await CompanySettings.getOrCreate(company_name);
+    const absenceDeduction = settings.absenceDeduction || 0;
+    const halfDayDeduction = settings.halfDayDeduction || 0;
+    const lateDeduction = settings.lateDeduction || 0;
 
-    if (workingDays > 0) {
-      const dailyRate = monthlySalary / 30; // Assuming 30 days per month
-      const deductions = userData.summary.absent * dailyRate + (userData.summary.halfDay * (dailyRate / 2));
-      userData.summary.adjustedSalary = monthlySalary - deductions;
-    } else {
-      userData.summary.adjustedSalary = monthlySalary;
-    }
+    // Calculate adjusted salary using configured deductions
+    const monthlySalary = employee.salary || 0;
+    const lateCount = records.filter(r => r.status === 'late').length;
+    const deductions = (userData.summary.absent * absenceDeduction) + (userData.summary.halfDay * halfDayDeduction) + (lateCount * lateDeduction);
+    userData.summary.adjustedSalary = Math.max(0, monthlySalary - deductions);
 
     res.status(200).json([userData]); // Return as array for frontend compatibility
   } catch (error) {
