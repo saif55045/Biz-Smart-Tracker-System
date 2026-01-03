@@ -81,12 +81,22 @@ export function SignUp() {
     };
 
     const handleAction = async () => {
-        if (!user.username || !user.email || !user.password || !user.cpassword || !user.cname || !user.phone || !user.address) {
+        if (!user.username || !user.email || !user.password || !user.cpassword || !user.cname) {
             toast.warning("Please fill in all required fields");
             return;
         }
         if (user.password !== user.cpassword) {
             toast.error("Passwords do not match!");
+            return;
+        }
+        // Password strength validation (must match backend)
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/;
+        if (user.password.length < 8) {
+            toast.error("Password must be at least 8 characters");
+            return;
+        }
+        if (!passwordRegex.test(user.password)) {
+            toast.error("Password must contain at least one uppercase letter, one lowercase letter, and one number");
             return;
         }
         if (companyNameStatus.isAvailable === false) {

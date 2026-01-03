@@ -39,11 +39,24 @@ const sendOtp = async (req, res) => {
         if (!email) {
             return res.status(400).json({ message: "Email is required" });
         }
+
+        // Check if email credentials are configured
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+            console.error('Email configuration missing: EMAIL_USER or EMAIL_PASS not set');
+            return res.status(500).json({
+                message: 'Email service not configured. Please contact administrator.'
+            });
+        }
+
         await generateOTP(email);
         res.status(200).json({ message: 'OTP sent successfully!' });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Error sending OTP' });
+        console.error('Error sending OTP:', error.message || error);
+        // Return more descriptive error for debugging
+        res.status(500).json({
+            message: 'Error sending OTP',
+            error: process.env.NODE_ENV === 'production' ? 'Email service error' : error.message
+        });
     }
 };
 
@@ -51,36 +64,36 @@ const sendOtp = async (req, res) => {
 
 // Update verifyOtp
 const verifyOtp = async (req, res) => {
-    
+
     const { email, otp } = req.body;
 
     try {
-        
+
         if (!email || !otp) {
             return res.status(400).json({ message: "Email and OTP are required" });
         }
-        
+
         if (!otpStore[email]) {
             return res.status(400).json({ message: "No OTP sent to this email." });
         }
-        
+
         const storedOtp = otpStore[email];
-        
+
         if (storedOtp.expiresAt < Date.now()) {
             delete otpStore[email];
             return res.status(400).json({ message: "OTP expired. Please request a new one." });
         }
-        
+
         if (storedOtp.otp !== otp) {
             return res.status(400).json({ message: "Invalid OTP" });
         }
-        
+
         // ✅ OTP verified, create reset token (valid for 15 min)
         const resetToken = jwt.sign({ email }, process.env.JWT_SECRET_KEY, { expiresIn: '15m' });
-        
+
         // Delete OTP after success
         delete otpStore[email];
-        
+
         res.status(200).json({ message: 'OTP verified successfully', resetToken });
     } catch (error) {
         console.log(error);
@@ -102,7 +115,7 @@ const forgetPasswordOtp = async (req, res) => {
         }
 
         await generateOTP(email);
-        req.body=user;
+        req.body = user;
         res.status(200).json({ message: 'OTP sent successfully!' });
     } catch (error) {
         console.log(error);

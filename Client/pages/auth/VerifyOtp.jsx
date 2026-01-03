@@ -69,14 +69,14 @@ export function VerifyOtp() {
         return;
       }
 
-      const verifyRes = await axios.post(`${config.API_URL} /auth/verify - otp`, {
+      const verifyRes = await axios.post(`${config.API_URL}/auth/verify-otp`, {
         email: userData.email,
         otp: otpCode
       });
 
       if (verifyRes.status === 200) {
         // Only alert if preferred, or just rely on the next step
-        const signupRes = await axios.post(`${config.API_URL} /auth/signup`, {
+        const signupRes = await axios.post(`${config.API_URL}/auth/signup`, {
           email: userData.email,
           password: userData.password,
           company_name: userData.cname,

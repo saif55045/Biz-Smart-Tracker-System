@@ -54,14 +54,16 @@ const signupSchema = Joi.object({
         .max(50)
         .required(),
     address: Joi.string()
-        .min(5)
+        .min(0)
         .max(200)
-        .required(),
+        .allow('')
+        .optional(),
     phone_number: Joi.string()
-        .pattern(/^\d{10,15}$/)
-        .required()
+        .max(20)
+        .allow('')
+        .optional()
         .messages({
-            'string.pattern.base': 'Phone number must be 10-15 digits'
+            'string.pattern.base': 'Please provide a valid phone number'
         }),
     role: Joi.string()
         .valid('Admin', 'Employee')
