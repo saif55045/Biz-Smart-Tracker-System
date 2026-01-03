@@ -54,6 +54,10 @@ const Port = process.env.PORT || 5000;
 // SECURITY MIDDLEWARE
 // ============================================
 
+// Trust proxy - Required for Render/Heroku/Vercel deployments
+// This allows express-rate-limit to correctly identify users behind a proxy
+app.set('trust proxy', 1);
+
 // Helmet: Sets various HTTP headers for security
 // - X-XSS-Protection: Prevents reflected XSS attacks
 // - X-Frame-Options: Prevents clickjacking
