@@ -1,9 +1,12 @@
 const User = require('../models/User');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 // Verify OTP
 const jwt = require('jsonwebtoken');
 // Temporary in-memory store (for production use Redis or database)
 const otpStore = {};
+
+// Initialize Resend with API key
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Generate OTP function
 const generateOTP = async (email) => {
@@ -13,29 +16,69 @@ const generateOTP = async (email) => {
     // Save OTP with expiry (5 min)
     otpStore[email] = { otp, expiresAt: Date.now() + 5 * 60 * 1000 }; // 5 minutes validity
 
-    // Setup nodemailer with explicit SMTP settings (better for cloud platforms)
-    const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false, // Use TLS
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        },
-        tls: {
-            rejectUnauthorized: false // Allow self-signed certificates
-        },
-        connectionTimeout: 30000, // 30 seconds
-        greetingTimeout: 30000,
-        socketTimeout: 30000
-    });
-
-    // Send email
-    await transporter.sendMail({
-        from: process.env.EMAIL_USER,
+    // Send email using Resend
+    await resend.emails.send({
+        from: 'BizSmartTrack <onboarding@resend.dev>',
         to: email,
-        subject: 'Your OTP Code',
-        text: `Your OTP code is: ${otp}`
+        subject: 'Your Verification Code - BizSmartTrack',
+        html: `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td align="center" style="padding: 40px 20px;">
+                            <table role="presentation" style="max-width: 480px; width: 100%; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);">
+                                <!-- Header -->
+                                <tr>
+                                    <td style="padding: 32px 32px 24px; text-align: center;">
+                                        <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #ffffff;">
+                                            <span style="color: #60a5fa;">Biz</span>SmartTrack
+                                        </h1>
+                                    </td>
+                                </tr>
+                                <!-- Content -->
+                                <tr>
+                                    <td style="padding: 0 32px 32px;">
+                                        <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 24px; text-align: center;">
+                                            <p style="margin: 0 0 8px; font-size: 14px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">
+                                                Verification Code
+                                            </p>
+                                            <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 20px; border-radius: 8px; margin: 16px 0;">
+                                                <span style="font-size: 36px; font-weight: 700; letter-spacing: 8px; color: #ffffff;">
+                                                    ${otp}
+                                                </span>
+                                            </div>
+                                            <p style="margin: 16px 0 0; font-size: 14px; color: #64748b;">
+                                                This code expires in <strong style="color: #f59e0b;">5 minutes</strong>
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Footer -->
+                                <tr>
+                                    <td style="padding: 0 32px 32px; text-align: center;">
+                                        <p style="margin: 0 0 16px; font-size: 13px; color: #64748b; line-height: 1.6;">
+                                            If you didn't request this code, you can safely ignore this email.
+                                        </p>
+                                        <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px;">
+                                            <p style="margin: 0; font-size: 12px; color: #475569;">
+                                                © ${new Date().getFullYear()} BizSmartTrack. All rights reserved.
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </body>
+            </html>
+        `
     });
 };
 
