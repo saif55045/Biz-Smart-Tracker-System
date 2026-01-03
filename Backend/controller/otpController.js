@@ -13,13 +13,21 @@ const generateOTP = async (email) => {
     // Save OTP with expiry (5 min)
     otpStore[email] = { otp, expiresAt: Date.now() + 5 * 60 * 1000 }; // 5 minutes validity
 
-    // Setup nodemailer
+    // Setup nodemailer with explicit SMTP settings (better for cloud platforms)
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false, // Use TLS
         auth: {
-            user: process.env.EMAIL_USER, // Your Gmail email
-            pass: process.env.EMAIL_PASS  // Your Gmail App Password
-        }
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        },
+        tls: {
+            rejectUnauthorized: false // Allow self-signed certificates
+        },
+        connectionTimeout: 30000, // 30 seconds
+        greetingTimeout: 30000,
+        socketTimeout: 30000
     });
 
     // Send email
