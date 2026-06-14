@@ -155,136 +155,67 @@
 | MongoDB Atlas | Cloud-hosted NoSQL database |
 | 14 Collections | Company, User, Product, Sale, Expense, Attendance, Customer, Discussion, Notification, AuditLog, CompanyField, CompanySettings, InventoryField, DeletedDefaultField |
 
----
-
-## 📦 Getting Started
-
-### Prerequisites
-- Node.js v18 or higher
-- MongoDB Atlas account (or local MongoDB v7+)
-- Google OAuth credentials (optional, for social login)
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/saif55045/Biz-Smart-Tracker-System.git
-   cd Biz-Smart-Tracker-System
-   ```
-
-2. **Setup Backend:**
-   ```bash
-   cd Backend
-   npm install
-   cp env.example .env
-   # Edit .env with your credentials (see Environment Variables below)
-   node server.js
-   ```
-   > ✅ Backend running at `http://localhost:5000`
-
-3. **Setup Frontend:**
-   ```bash
-   cd Client
-   npm install
-   npm run dev
-   ```
-   > ✅ Frontend running at `http://localhost:5173`
-
----
-
-## 🔐 Environment Variables
-
-Create a `.env` file in the `Backend/` directory:
-
-```env
-# Server
-PORT=5000
-
-# Database
-MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/biz-smart-tracker
-
-# Authentication
-JWT_SECRET_KEY=your-256-bit-secret-key
-
-# Frontend URL (for CORS)
-CLIENT_URL=http://localhost:5173
-
-# Google OAuth (optional)
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-GOOGLE_CALLBACK_URL=http://localhost:5000/api/auth/google/callback
-
-# Facebook OAuth (optional)
-FACEBOOK_APP_ID=your-facebook-app-id
-FACEBOOK_APP_SECRET=your-facebook-app-secret
-
-# Email Service
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASS=your-app-password
-RESEND_API_KEY=your-resend-api-key
-```
-
----
-
 ## 🔌 API Reference
+
+> **Legend:** 🔓 = Public (no login needed) · 🔒 = Protected (JWT token required)
 
 ### Authentication (`/api/auth`)
 | Method | Endpoint | Description | Auth |
 |--------|----------|-------------|------|
-| POST | `/login` | Email + password login | ❌ |
-| POST | `/signup` | Register new user | ❌ |
-| POST | `/google` | Google OAuth login | ❌ |
-| POST | `/facebook` | Facebook OAuth login | ❌ |
-| POST | `/complete-signup` | Complete social signup | ❌ |
-| POST | `/send-otp` | Send OTP to email | ❌ |
-| POST | `/verify-otp` | Verify email OTP | ❌ |
-| POST | `/forgot-password` | Send password reset OTP | ❌ |
-| POST | `/reset-password` | Reset password with OTP | ❌ |
+| POST | `/login` | Email + password login | 🔓 Public |
+| POST | `/signup` | Register new user | 🔓 Public |
+| POST | `/google` | Google OAuth login | 🔓 Public |
+| POST | `/facebook` | Facebook OAuth login | 🔓 Public |
+| POST | `/complete-signup` | Complete social signup | 🔓 Public |
+| POST | `/send-otp` | Send OTP to email | 🔓 Public |
+| POST | `/verify-otp` | Verify email OTP | 🔓 Public |
+| POST | `/forgot-password` | Send password reset OTP | 🔓 Public |
+| POST | `/reset-password` | Reset password with OTP | 🔓 Public |
 
 ### Products (`/api/products`)
 | Method | Endpoint | Description | Auth |
 |--------|----------|-------------|------|
-| GET | `/` | List all products | ✅ |
-| POST | `/` | Create a product | ✅ |
-| PUT | `/:id` | Update a product | ✅ |
-| DELETE | `/:id` | Delete a product | ✅ |
+| GET | `/` | List all products | 🔒 Protected |
+| POST | `/` | Create a product | 🔒 Protected |
+| PUT | `/:id` | Update a product | 🔒 Protected |
+| DELETE | `/:id` | Delete a product | 🔒 Protected |
 
 ### Sales (`/api/sales`)
 | Method | Endpoint | Description | Auth |
 |--------|----------|-------------|------|
-| GET | `/` | List all sales | ✅ |
-| POST | `/` | Record a new sale | ✅ |
-| GET | `/:id` | Get sale details | ✅ |
+| GET | `/` | List all sales | 🔒 Protected |
+| POST | `/` | Record a new sale | 🔒 Protected |
+| GET | `/:id` | Get sale details | 🔒 Protected |
 
 ### Customers (`/api/customers`)
 | Method | Endpoint | Description | Auth |
 |--------|----------|-------------|------|
-| GET | `/` | List all customers | ✅ |
-| POST | `/` | Add a customer | ✅ |
-| PUT | `/:id` | Update customer info | ✅ |
-| DELETE | `/:id` | Remove a customer | ✅ |
+| GET | `/` | List all customers | 🔒 Protected |
+| POST | `/` | Add a customer | 🔒 Protected |
+| PUT | `/:id` | Update customer info | 🔒 Protected |
+| DELETE | `/:id` | Remove a customer | 🔒 Protected |
 
 ### Expenses (`/api/expenses`)
 | Method | Endpoint | Description | Auth |
 |--------|----------|-------------|------|
-| GET | `/` | List all expenses | ✅ |
-| POST | `/` | Log an expense | ✅ |
-| DELETE | `/:id` | Delete an expense | ✅ |
+| GET | `/` | List all expenses | 🔒 Protected |
+| POST | `/` | Log an expense | 🔒 Protected |
+| DELETE | `/:id` | Delete an expense | 🔒 Protected |
 
 ### Reports (`/api/reports`)
 | Method | Endpoint | Description | Auth |
 |--------|----------|-------------|------|
-| GET | `/sales` | Sales report with filters | ✅ |
-| GET | `/expenses` | Expense report | ✅ |
-| GET | `/dashboard` | Dashboard summary stats | ✅ |
+| GET | `/sales` | Sales report with filters | 🔒 Protected |
+| GET | `/expenses` | Expense report | 🔒 Protected |
+| GET | `/dashboard` | Dashboard summary stats | 🔒 Protected |
 
 ### Discussions (`/api/discussions`)
 | Method | Endpoint | Description | Auth |
 |--------|----------|-------------|------|
-| GET | `/` | List discussions | ✅ |
-| POST | `/` | Create a discussion | ✅ |
-| GET | `/:id` | Get discussion + comments | ✅ |
-| POST | `/:id/comment` | Add comment (real-time) | ✅ |
+| GET | `/` | List discussions | 🔒 Protected |
+| POST | `/` | Create a discussion | 🔒 Protected |
+| GET | `/:id` | Get discussion + comments | 🔒 Protected |
+| POST | `/:id/comment` | Add comment (real-time) | 🔒 Protected |
 
 ### Other Endpoints
 | Module | Base Path | Endpoints |
