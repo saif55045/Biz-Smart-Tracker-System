@@ -1,39 +1,159 @@
-# 📊 Biz Smart Tracker
+<h1 align="center">📊 Biz Smart Tracker</h1>
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
-[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+<p align="center">
+  <strong>All-in-One Business Management Platform for SMEs</strong>
+</p>
 
-A comprehensive business management platform designed for small-to-medium enterprises. Biz Smart Tracker provides real-time sales tracking, inventory management, employee attendance, expense monitoring, and intelligent reporting — all in a single, unified dashboard.
+<p align="center">
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" /></a>
+  <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" /></a>
+  <a href="https://expressjs.com/"><img src="https://img.shields.io/badge/Express-5-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" /></a>
+  <a href="https://www.mongodb.com/"><img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" /></a>
+  <a href="https://socket.io/"><img src="https://img.shields.io/badge/Socket.IO-4.8-010101?style=for-the-badge&logo=socketdotio&logoColor=white" alt="Socket.IO" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" /></a>
+</p>
+
+<p align="center">
+  A comprehensive, full-stack business management platform designed for small-to-medium enterprises (SMEs). Biz Smart Tracker unifies <strong>sales tracking, inventory management, employee attendance, expense monitoring, customer management, team discussions, and financial reporting</strong> — all in one modern, real-time dashboard with role-based access control and multi-company support.
+</p>
 
 ---
 
-## ✨ Features
+## 📋 Table of Contents
 
-- **📈 Sales & Revenue Tracking** — Record, categorize, and visualize daily sales with interactive Chart.js dashboards.
-- **📦 Inventory Management** — Track stock levels, custom inventory fields, and product catalogs with automated alerts.
-- **👥 Employee Attendance** — Monitor employee check-ins, absences, and work hours.
-- **💰 Expense Management** — Log and categorize business expenses for financial clarity.
-- **🔔 Real-Time Notifications** — Socket.IO-powered live notifications for critical business events.
-- **📊 Intelligent Reports** — Generate financial summaries, sales reports, and export data.
-- **🔐 Authentication & Security** — JWT-based auth, Google & Facebook OAuth, OTP verification, CSRF protection, rate limiting, and Helmet security headers.
-- **👤 Multi-Role Access** — Role-based access control with company-level data isolation.
-- **🏢 Multi-Company Support** — Manage multiple business entities under a single account.
+- [Key Features](#-key-features)
+- [System Architecture](#️-system-architecture)
+- [Tech Stack](#️-tech-stack)
+- [Getting Started](#-getting-started)
+- [Environment Variables](#-environment-variables)
+- [API Reference](#-api-reference)
+- [Database Schema](#️-database-schema)
+- [Security Features](#-security-features)
+- [Project Structure](#-project-structure)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
+
+## ✨ Key Features
+
+### 📈 Sales & Revenue
+- **Point of Sale (POS)** — Streamlined selling interface with product search, quantity management, and invoice generation
+- **Sales History** — Complete transaction logs with date filtering, customer tagging, and export capabilities
+- **Revenue Dashboard** — Interactive Chart.js visualizations with daily, weekly, and monthly breakdowns
+
+### 📦 Inventory Management
+- **Product Catalog** — Full CRUD for products with images, pricing, stock levels, and categories
+- **Custom Schema Fields** — Define custom inventory attributes per company (e.g., "Color", "Warranty Period")
+- **Low Stock Alerts** — Automated real-time notifications when products fall below threshold levels
+- **Product Status Monitoring** — Hourly background checks for stock levels with notification dispatch
+
+### 👥 Employee & Attendance
+- **User Management** — Invite, assign roles (Admin/Manager/Employee), and manage team members
+- **Attendance Tracking** — Daily check-in/check-out with timestamps, late arrivals, and absence logging
+- **Attendance Reports** — Monthly and weekly attendance summaries per employee
+
+### 💰 Expense Management
+- **Expense Logger** — Categorize and record business expenses with dates and descriptions
+- **Expense Analytics** — Visual breakdowns by category and time period
+
+### 👤 Customer Management
+- **Customer Database** — Store customer details, contact info, and purchase history
+- **Customer Insights** — Track which customers generate the most revenue
+
+### 💬 Discussion Board
+- **Team Communication** — Create discussion threads for business topics
+- **Real-Time Comments** — Socket.IO-powered live comment updates
+- **Discussion Rooms** — Join/leave discussion rooms with live user tracking
+- **Filters & Stats** — Filter by status, search, and view engagement statistics
+
+### 📊 Reports & Analytics
+- **Financial Reports** — Revenue vs. expenses, profit margins, and trend analysis
+- **Sales Reports** — Top-selling products, sales by period, and customer-wise breakdown
+- **Exportable Data** — Download reports for accounting and auditing
+
+### 🔔 Real-Time Notifications
+- **Socket.IO Events** — Instant push notifications for sales, low stock alerts, and team updates
+- **Notification Center** — In-app notification panel with read/unread status and history
+
+---
+
+## 🏗️ System Architecture
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                     BIZ SMART TRACKER                           │
+├──────────────────────────┬───────────────────────────────────────┤
+│                          │                                       │
+│     🖥️ Frontend          │          🖥️ Backend                   │
+│     React 19 + Vite      │          Express 5 + MongoDB          │
+│                          │                                       │
+│  ┌─────────────────┐     │     ┌──────────────────────┐         │
+│  │ Landing Page     │     │     │ Security Layer       │         │
+│  │ Auth (Login/OTP) │────►│────►│ Helmet + CORS        │         │
+│  │ Dashboard        │     │     │ Rate Limiting         │         │
+│  │ POS / Selling    │     │     │ Mongo Sanitization    │         │
+│  │ Inventory        │     │     │ JWT Auth              │         │
+│  │ Customers        │     │     └──────────┬───────────┘         │
+│  │ Expenses         │     │                │                     │
+│  │ Reports          │     │     ┌──────────▼───────────┐         │
+│  │ Discussion Board │◄───►│◄───►│ Socket.IO Server     │         │
+│  │ User Management  │     │     │ (Real-time events)   │         │
+│  │ Settings         │     │     └──────────┬───────────┘         │
+│  │ Profile          │     │                │                     │
+│  └─────────────────┘     │     ┌──────────▼───────────┐         │
+│                          │     │ 13 Route Modules      │         │
+│  UI Libraries:           │     │ 12 Controllers        │         │
+│  • Chart.js / chartjs-2  │     │ 14 Mongoose Models    │         │
+│  • React Router v7       │     │ Passport.js OAuth     │         │
+│  • Axios                 │     └──────────┬───────────┘         │
+│  • date-fns              │                │                     │
+│  • file-saver            │     ┌──────────▼───────────┐         │
+│                          │     │ MongoDB Atlas         │         │
+│                          │     │ (Multi-tenant data)   │         │
+│                          │     └──────────────────────┘         │
+├──────────────────────────┴───────────────────────────────────────┤
+│              Deployment: Vercel (Client) + Render (Backend)      │
+└──────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technologies |
-|-------|-------------|
-| **Frontend** | React 19, Vite, React Router v7, Chart.js, Axios |
-| **Backend** | Node.js, Express 5, Mongoose, Socket.IO |
-| **Database** | MongoDB |
-| **Auth** | JWT, Passport.js (Google OAuth, Facebook OAuth), OTP |
-| **Security** | Helmet, CORS, CSRF, Rate Limiting, Joi Validation |
-| **Email** | Nodemailer, Resend |
-| **Deployment** | Vercel (Frontend) |
+### Frontend
+| Technology | Version | Purpose |
+|-----------|---------|---------|
+| React | 19 | UI framework |
+| Vite | Latest | Build tool & dev server |
+| React Router | v7 | Client-side routing |
+| Chart.js + react-chartjs-2 | 4.x | Interactive charts & analytics |
+| Axios | Latest | HTTP client for API calls |
+| date-fns | 4.x | Date formatting & manipulation |
+| file-saver | 2.x | Export reports as downloadable files |
+| Socket.IO Client | 4.x | Real-time event handling |
+
+### Backend
+| Technology | Version | Purpose |
+|-----------|---------|---------|
+| Node.js | 18+ | Runtime environment |
+| Express | 5 | Web framework |
+| Mongoose | 8.x | MongoDB ODM |
+| Socket.IO | 4.8 | WebSocket server for real-time features |
+| JWT (jsonwebtoken) | 9.x | Token-based authentication |
+| Passport.js | 0.7 | Google & Facebook OAuth strategies |
+| bcrypt | 5.x | Password hashing |
+| Helmet | 8.x | HTTP security headers |
+| compression | 1.x | Response compression (70-90% size reduction) |
+| express-rate-limit | 8.x | Brute-force protection on auth routes |
+| Joi | 18.x | Request body validation |
+| Nodemailer + Resend | Latest | Email service (OTP, notifications) |
+
+### Database
+| Technology | Purpose |
+|-----------|---------|
+| MongoDB Atlas | Cloud-hosted NoSQL database |
+| 14 Collections | Company, User, Product, Sale, Expense, Attendance, Customer, Discussion, Notification, AuditLog, CompanyField, CompanySettings, InventoryField, DeletedDefaultField |
 
 ---
 
@@ -41,8 +161,8 @@ A comprehensive business management platform designed for small-to-medium enterp
 
 ### Prerequisites
 - Node.js v18 or higher
-- MongoDB Atlas account or local MongoDB instance
-- Google OAuth credentials (optional)
+- MongoDB Atlas account (or local MongoDB v7+)
+- Google OAuth credentials (optional, for social login)
 
 ### Installation
 
@@ -52,30 +172,182 @@ A comprehensive business management platform designed for small-to-medium enterp
    cd Biz-Smart-Tracker-System
    ```
 
-2. **Set up the Backend:**
+2. **Setup Backend:**
    ```bash
    cd Backend
    npm install
    cp env.example .env
-   # Edit .env with your MongoDB URI, JWT secret, and OAuth credentials
-   npm start
+   # Edit .env with your credentials (see Environment Variables below)
+   node server.js
    ```
+   > ✅ Backend running at `http://localhost:5000`
 
-3. **Set up the Frontend:**
+3. **Setup Frontend:**
    ```bash
    cd Client
    npm install
    npm run dev
    ```
+   > ✅ Frontend running at `http://localhost:5173`
 
-4. **Environment Variables (Backend `.env`):**
-   ```env
-   PORT=5000
-   MONGODB_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   GOOGLE_CLIENT_ID=your_google_client_id
-   GOOGLE_CLIENT_SECRET=your_google_client_secret
-   ```
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file in the `Backend/` directory:
+
+```env
+# Server
+PORT=5000
+
+# Database
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/biz-smart-tracker
+
+# Authentication
+JWT_SECRET_KEY=your-256-bit-secret-key
+
+# Frontend URL (for CORS)
+CLIENT_URL=http://localhost:5173
+
+# Google OAuth (optional)
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GOOGLE_CALLBACK_URL=http://localhost:5000/api/auth/google/callback
+
+# Facebook OAuth (optional)
+FACEBOOK_APP_ID=your-facebook-app-id
+FACEBOOK_APP_SECRET=your-facebook-app-secret
+
+# Email Service
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-password
+RESEND_API_KEY=your-resend-api-key
+```
+
+---
+
+## 🔌 API Reference
+
+### Authentication (`/api/auth`)
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| POST | `/login` | Email + password login | ❌ |
+| POST | `/signup` | Register new user | ❌ |
+| POST | `/google` | Google OAuth login | ❌ |
+| POST | `/facebook` | Facebook OAuth login | ❌ |
+| POST | `/complete-signup` | Complete social signup | ❌ |
+| POST | `/send-otp` | Send OTP to email | ❌ |
+| POST | `/verify-otp` | Verify email OTP | ❌ |
+| POST | `/forgot-password` | Send password reset OTP | ❌ |
+| POST | `/reset-password` | Reset password with OTP | ❌ |
+
+### Products (`/api/products`)
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/` | List all products | ✅ |
+| POST | `/` | Create a product | ✅ |
+| PUT | `/:id` | Update a product | ✅ |
+| DELETE | `/:id` | Delete a product | ✅ |
+
+### Sales (`/api/sales`)
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/` | List all sales | ✅ |
+| POST | `/` | Record a new sale | ✅ |
+| GET | `/:id` | Get sale details | ✅ |
+
+### Customers (`/api/customers`)
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/` | List all customers | ✅ |
+| POST | `/` | Add a customer | ✅ |
+| PUT | `/:id` | Update customer info | ✅ |
+| DELETE | `/:id` | Remove a customer | ✅ |
+
+### Expenses (`/api/expenses`)
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/` | List all expenses | ✅ |
+| POST | `/` | Log an expense | ✅ |
+| DELETE | `/:id` | Delete an expense | ✅ |
+
+### Reports (`/api/reports`)
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/sales` | Sales report with filters | ✅ |
+| GET | `/expenses` | Expense report | ✅ |
+| GET | `/dashboard` | Dashboard summary stats | ✅ |
+
+### Discussions (`/api/discussions`)
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/` | List discussions | ✅ |
+| POST | `/` | Create a discussion | ✅ |
+| GET | `/:id` | Get discussion + comments | ✅ |
+| POST | `/:id/comment` | Add comment (real-time) | ✅ |
+
+### Other Endpoints
+| Module | Base Path | Endpoints |
+|--------|-----------|-----------|
+| Users | `/api/user` | CRUD, role management, attendance |
+| Notifications | `/api/notifications` | List, mark read, product status |
+| Inventory Fields | `/api/inventory` | Custom field schema management |
+| Settings | `/api/settings` | Company settings configuration |
+
+---
+
+## 🗄️ Database Schema
+
+```mermaid
+erDiagram
+    Company ||--o{ User : has
+    Company ||--o{ Product : owns
+    Company ||--o{ Sale : records
+    Company ||--o{ Expense : tracks
+    Company ||--o{ Customer : manages
+    Company ||--o{ Discussion : hosts
+    Company ||--o{ CompanySettings : configures
+
+    User ||--o{ Attendance : logs
+    User ||--o{ Sale : creates
+    User ||--o{ Notification : receives
+
+    Sale ||--o{ Product : contains
+    Sale ||--o{ Customer : "sold to"
+
+    Discussion ||--o{ User : "commented by"
+```
+
+### Key Models
+
+| Model | Fields | Purpose |
+|-------|--------|---------|
+| `Company` | name, industry, logo, plan | Multi-tenant organization |
+| `User` | email, password, role, company | Team member with RBAC |
+| `Product` | name, price, stock, category, customFields | Inventory item |
+| `Sale` | products, total, customer, date, createdBy | Transaction record |
+| `Expense` | category, amount, description, date | Business expense |
+| `Attendance` | user, date, checkIn, checkOut, status | Daily attendance |
+| `Customer` | name, email, phone, totalPurchases | Client record |
+| `Discussion` | title, content, author, comments | Team thread |
+| `Notification` | type, message, user, read | System alert |
+| `AuditLog` | action, user, details, timestamp | Activity audit trail |
+
+---
+
+## 🔒 Security Features
+
+| Feature | Implementation | Protection Against |
+|---------|---------------|-------------------|
+| **Helmet** | HTTP security headers | XSS, clickjacking, MIME sniffing |
+| **CORS** | Origin-restricted API access | Cross-origin attacks |
+| **Rate Limiting** | 15 req/15min on auth endpoints | Brute-force login attacks |
+| **MongoDB Sanitization** | Custom `$` and `.` key stripping | NoSQL injection |
+| **bcrypt** | 10-round password hashing | Password theft |
+| **JWT** | Token-based stateless auth | Session hijacking |
+| **Joi Validation** | Request body schema validation | Malformed input |
+| **Compression** | gzip response compression | Bandwidth optimization |
+| **Passport.js** | OAuth 2.0 (Google, Facebook) | Secure social login |
 
 ---
 
@@ -84,18 +356,51 @@ A comprehensive business management platform designed for small-to-medium enterp
 ```
 Biz-Smart-Tracker-System/
 ├── Backend/
-│   ├── config/               # Database & Passport configuration
-│   ├── controller/           # Route handlers (auth, sales, inventory, etc.)
-│   ├── middleware/            # Auth, CSRF, and validation middleware
-│   ├── models/               # Mongoose schemas (Company, Attendance, etc.)
-│   ├── server.js             # Express server entry point
+│   ├── config/
+│   │   ├── db.js                    # MongoDB connection
+│   │   └── passport.js              # Google & Facebook OAuth config
+│   ├── controller/
+│   │   ├── authController.js        # Login, signup, OTP, OAuth
+│   │   ├── productController.js     # Product CRUD
+│   │   ├── saleController.js        # Sales recording & history
+│   │   ├── customerController.js    # Customer management
+│   │   ├── expenseController.js     # Expense logging
+│   │   ├── attendanceController.js  # Check-in/out tracking
+│   │   ├── reportController.js      # Report generation
+│   │   ├── discussionController.js  # Discussion board logic
+│   │   ├── notificationController.js # Real-time notifications
+│   │   ├── settingsController.js    # Company configuration
+│   │   ├── inventoryFieldController.js # Custom field schemas
+│   │   └── userController.js        # User & role management
+│   ├── middleware/
+│   │   ├── authMiddleware.js        # JWT verification guard
+│   │   ├── csrf.js                  # CSRF protection
+│   │   └── validation.js            # Joi request validation
+│   ├── models/                      # 14 Mongoose schemas
+│   ├── routes/                      # 13 Express route modules
+│   ├── server.js                    # Express + Socket.IO entry point
+│   ├── env.example                  # Environment template
 │   └── package.json
+│
 ├── Client/
-│   ├── components/           # Reusable UI components (Button, Toast, etc.)
-│   ├── pages/                # Page views (Auth, Dashboard, Reports)
-│   ├── context/              # React Context providers
-│   ├── index.html            # App entry
+│   ├── components/                  # Reusable UI (Button, Toast, Select, etc.)
+│   │   └── auth/                    # GoogleLogin, ProtectedRoute
+│   ├── context/                     # CurrencyContext provider
+│   ├── pages/
+│   │   ├── auth/                    # Login, SignUp, OTP, Password Reset
+│   │   ├── dashboard/               # Dashboard analytics & reports
+│   │   ├── inventory/               # Product, Schema, Selling pages
+│   │   ├── customer/                # Customer management
+│   │   ├── expenses/                # Expense logger
+│   │   ├── discussion/              # Discussion board with components
+│   │   ├── invoice/                 # Invoice generation & preview
+│   │   ├── landing/                 # Public landing page
+│   │   ├── settings/                # Company settings
+│   │   └── user/                    # Profile, User management, Attendance
+│   ├── index.html
+│   ├── vercel.json                  # Vercel deployment config
 │   └── package.json
+│
 └── README.md
 ```
 
@@ -103,7 +408,13 @@ Biz-Smart-Tracker-System/
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please fork the repository and submit a pull request.
+Contributions are welcome! To get started:
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'feat: add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
 
 ---
 
