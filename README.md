@@ -1,4 +1,4 @@
-<h1 align="center">📊 Biz Smart Tracker</h1>
+﻿<h1 align="center">📊 Biz Smart Tracker</h1>
 
 <p align="center">
   <strong>All-in-One Business Management Platform for SMEs</strong>
@@ -34,6 +34,22 @@
 - [License](#-license)
 
 ---
+
+
+## ðŸ–¼ï¸ Screenshots
+
+![Screenshot](assets/Screenshot%202026-06-18%20220323.png)
+
+![Screenshot](assets/Screenshot%202026-06-18%20220414.png)
+
+![Screenshot](assets/Screenshot%202026-06-18%20220456.png)
+
+![Screenshot](assets/Screenshot%202026-06-18%20220537.png)
+
+![Screenshot](assets/Screenshot%202026-06-18%20220608.png)
+
+![Screenshot](assets/Screenshot%202026-06-18%20220639.png)
+
 
 ## ✨ Key Features
 
@@ -367,5 +383,3 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 ![Screenshot](assets/Screenshot%202026-06-18%20220608.png)
 
 ![Screenshot](assets/Screenshot%202026-06-18%20220639.png)
-
-
