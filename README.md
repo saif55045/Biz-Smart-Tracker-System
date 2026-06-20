@@ -35,8 +35,7 @@
 
 ---
 
-
-## ðŸ–¼ï¸ Screenshots
+## 🖼️ Screenshots
 
 ![Screenshot](assets/Screenshot%202026-06-18%20220323.png)
 
@@ -369,17 +368,3 @@ Contributions are welcome! To get started:
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
-
-## 🖼️ Screenshots
-
-![Screenshot](assets/Screenshot%202026-06-18%20220323.png)
-
-![Screenshot](assets/Screenshot%202026-06-18%20220414.png)
-
-![Screenshot](assets/Screenshot%202026-06-18%20220456.png)
-
-![Screenshot](assets/Screenshot%202026-06-18%20220537.png)
-
-![Screenshot](assets/Screenshot%202026-06-18%20220608.png)
-
-![Screenshot](assets/Screenshot%202026-06-18%20220639.png)
